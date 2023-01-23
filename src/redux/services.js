@@ -1,3 +1,4 @@
+import { loadCustomers } from "./customerReducer";
 import { loadWorkData } from "./workReducer";
 
 const getWorkData = () => {
@@ -8,6 +9,15 @@ const getWorkData = () => {
 	}
 };
 
+const getCustomerData = () => {
+	return async (dispatch) => {
+		const response = await fetch("/customers.json");
+		const customerData = await response.json();
+		dispatch(loadCustomers(customerData));
+	}
+};
+
 export {
-	getWorkData
+	getWorkData,
+	getCustomerData
 };

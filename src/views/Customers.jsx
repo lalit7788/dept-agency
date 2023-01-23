@@ -1,10 +1,19 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/system";
 import { Grid, Typography } from "@mui/material";
-import customers from "../data/customers";
 import CustomerLogo from "../components/CustomerLogo";
+import { getCustomerData } from "../redux/services";
 
 const Customers = function() {
+	const dispatch = useDispatch();
+
+	React.useEffect(() => {
+		dispatch(getCustomerData());
+	}, [dispatch]);
+
+	const customers = useSelector((state) => state.customers.customers);
+
 	return (<Box sx={{
 		backgroundColor: "common.black",
 		overflowX: "hidden",
