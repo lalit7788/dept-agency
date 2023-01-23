@@ -1,9 +1,13 @@
 import React from "react";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import homeImg from "../images/home.png";
+import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
+
+const images = require.context('../images', true);
 
 const Home = function() {
+	const homeImg = useLazyLoadedImage(images(`./home.png`));
+
 	return (<Box
 		sx={{
 			paddingTop: theme => theme.mixins.toolbar.minHeight,

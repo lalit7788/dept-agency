@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import { Adjust } from "@mui/icons-material";
+import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
 
 const images = require.context('../images', true);
 
 const WorkCard = function({ imgName, companyName, cardTitle }) {
-	const img = images(`./${imgName}.png`);
+	const img = useLazyLoadedImage(images(`./${imgName}.png`));
 
 	return (<Box sx={{
 		backgroundImage: `url(${img})`,

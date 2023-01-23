@@ -2,12 +2,7 @@ import React from "react";
 import { Box } from "@mui/system";
 import { Grid, Typography } from "@mui/material";
 import customers from "../data/customers";
-import styled from "styled-components";
-const images = require.context('../images/logos', true);
-
-const CustomerLogo = styled("img")(() => ({
-	width: 100
-}));
+import CustomerLogo from "../components/CustomerLogo";
 
 const Customers = function() {
 	return (<Box sx={{
@@ -32,7 +27,7 @@ const Customers = function() {
 				}
 			}}>
 			{customers.map(({ id, name, imgName }) => (<Grid key={id} item xs={6} sm={4}>
-					<CustomerLogo alt={name} src={images(`./${imgName}.png`)}/>
+					<CustomerLogo name={name} imgName={imgName}/>
 				</Grid>
 			))}
 		</Grid>
