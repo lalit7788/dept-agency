@@ -1,85 +1,26 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedCategories, setSelectedIndustries } from "../redux/workReducer";
 import { Box } from "@mui/system";
 import { FormControl, Grid, MenuItem, Select, Typography } from "@mui/material";
 import WorkCard from "../components/WorkCard";
-import work from "../data/work";
-import styled from "styled-components";
-
-const FilterLabel = styled(Typography)(() => ({
-	color: "grey.600",
-	fontSize: 26
-}));
+import { filteredWorkCategories, filteredWorkIndustries } from "../redux/workSelectors";
+import { getWorkData } from "../redux/services";
 
 const WorkPortfolio = function() {
-	const [selectedCategories, setSelectedCategories] = React.useState(["all-work"]);
-	const [selectedIndustries, setSelectedIndustries] = React.useState(["all-industries"]);
+	const dispatch = useDispatch();
 
-	const workCategories = React.useMemo(() => {
-		return new Set(work
-			.filter((workItem) => {
-				if (selectedIndustries && selectedIndustries.indexOf("all-industries") === 0) {
-					return true;
-				}
-				return selectedIndustries.indexOf(workItem.industry) >= 0;
-			})
-			.flatMap((workItem) => workItem.categories)
-		);
-	}, [selectedIndustries]);
+	React.useEffect(() => {
+		dispatch(getWorkData());
+	}, [dispatch]);
 
-	const workIndustries = React.useMemo(() => {
-		return new Set(work
-			.filter((workItem) => selectedCategories && selectedCategories.indexOf("all-work") === 0 ? true : workItem.categories.some((wCat) => selectedCategories.indexOf(wCat) >= 0))
-			.map((workItem) => workItem.industry)
-		);
-	}, [selectedCategories]);
+	const workData = useSelector((state) => state.work.workData);
+	const selectedCategories = useSelector((state) => state.work.selectedCategories);
+	const selectedIndustries = useSelector((state) => state.work.selectedIndustries);
 
-	const handleCategoriesSelect = (event) => {
-		const { value } = event.target;
-		if (value.length > 1) {
-			const allCategoriesIndex = value.indexOf("all-work");
-			if (allCategoriesIndex >= 0) {
-				if (allCategoriesIndex === 0) {
-					const newCategories = value.slice();
-					newCategories.splice(0, 1);
-					setSelectedCategories(newCategories);
-				} else {
-					setSelectedCategories(["all-work"]);
-				}
-			} else {
-				setSelectedCategories(value);
-			}
-		} else {
-			if (!value.length || value.indexOf("all-work") >= 0) {
-				setSelectedCategories(["all-work"]);
-			} else {
-				setSelectedCategories(value);
-			}
-		}
-	}
+	const workCategories = useSelector((state) => filteredWorkCategories(state));
+	const workIndustries = useSelector((state) => filteredWorkIndustries(state));
 
-	const handleIndustriesSelect = (event) => {
-		const { value } = event.target;
-		if (value.length > 1) {
-			const allCategoriesIndex = value.indexOf("all-industries");
-			if (allCategoriesIndex >= 0) {
-				if (allCategoriesIndex === 0) {
-					const newIndustries = value.slice();
-					newIndustries.splice(0, 1);
-					setSelectedIndustries(newIndustries);
-				} else {
-					setSelectedIndustries(["all-industries"]);
-				}
-			} else {
-				setSelectedIndustries(value);
-			}
-		} else {
-			if (!value.length || value.indexOf("all-industries") >= 0) {
-				setSelectedIndustries(["all-industries"]);
-			} else {
-				setSelectedIndustries(value);
-			}
-		}
-	}
 
 	return (<Box sx={{ overflowX: "hidden" }}>
 		<Grid container alignItems="center" justifyContent="space-between" sx={{
@@ -87,7 +28,10 @@ const WorkPortfolio = function() {
 			py: 4
 		}}>
 			<Grid item sx={{ display: "inline-flex", alignItems: "center" }}>
-				<FilterLabel variant="h5">Show me</FilterLabel>
+				<Typography variant="h5" sx={{
+					color: "grey.600",
+					fontSize: 26
+				}}>Show me</Typography>
 				<FormControl
 					variant="standard"
 					sx={{
@@ -98,7 +42,7 @@ const WorkPortfolio = function() {
 				<Select
 					multiple
 					value={selectedCategories}
-					onChange={handleCategoriesSelect}
+					onChange={(event) => dispatch(setSelectedCategories(event.target.value))}
 					sx={{
 						color: "grey.900",
 						backgroundColor: "common.white",
@@ -127,7 +71,10 @@ const WorkPortfolio = function() {
 				</FormControl>
 			</Grid>
 			<Grid item sx={{ display: "inline-flex", alignItems: "center" }}>
-				<FilterLabel variant="h5">in</FilterLabel>
+				<Typography variant="h5" sx={{
+					color: "grey.600",
+					fontSize: 26
+				}}>in</Typography>
 				<FormControl
 					variant="standard"
 					sx={{
@@ -138,7 +85,7 @@ const WorkPortfolio = function() {
 				<Select
 					multiple
 					value={selectedIndustries}
-					onChange={handleIndustriesSelect}
+					onChange={(event) => dispatch(setSelectedIndustries(event.target.value))}
 					sx={{
 						color: "grey.900",
 						backgroundColor: "common.white",
@@ -168,7 +115,7 @@ const WorkPortfolio = function() {
 			</Grid>
 		</Grid>
 		<Grid container>
-			{work
+			{workData
 				.filter((workItem) => workItem.imgName)
 				.filter((workItem) => selectedCategories.indexOf("all-work") === 0 ? true : workItem.categories.some((wCat) => selectedCategories.indexOf(wCat) >= 0))
 				.filter((workItem) => selectedIndustries.indexOf("all-industries") === 0 ? true : selectedIndustries.indexOf(workItem.industry) >= 0)
