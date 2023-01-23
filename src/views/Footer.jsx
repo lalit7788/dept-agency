@@ -52,7 +52,7 @@ const Footer = function() {
 			</Grid>
 			<Grid item xs={12} md={false} sx={{ display: { xs: "flex", md: "none" }}}>
 				<Box
-					sx={{ textAlign: 'left', width: "100%" }}
+					sx={{ textAlign: "left", width: "100%" }}
 				>
 					<List>
 					{navItems.map((item, index) => {
@@ -72,7 +72,7 @@ const Footer = function() {
 							</IconButton>) : null}
 						>
 							<ListItemButton
-								sx={{ color: 'common.white', textTransform: "uppercase" }}
+								sx={{ color: "common.white", textTransform: "uppercase" }}
 							>
 								<ListItemText primary={item}/>
 							</ListItemButton>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
-const logos = require.context('../images/logos', true);
+const logos = require.context("../images/logos", true);
 
 const Logo = styled("img")`
 	width: 100px;

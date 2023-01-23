@@ -65,7 +65,7 @@ const AppHeader = function() {
 					src={deptLogo}
 				/>
 				<Box sx={{ display: "inline-flex", alignItems: "center"}}>
-					<Box sx={{ display: { xs: 'none', md: 'block' } }}>
+					<Box sx={{ display: { xs: "none", md: "block" } }}>
 						{navItems.map((item, index) => (
 							<Button
 								key={item}
@@ -111,8 +111,8 @@ const AppHeader = function() {
 				keepMounted: true, // Better open performance on mobile.
 				}}
 				sx={{
-					display: { xs: 'block', md: 'none' },
-					'& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+					display: { xs: "block", md: "none" },
+					"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
 				}}
 			>
 				{drawer}

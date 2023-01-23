@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
 
-const images = require.context('../images', true);
+const images = require.context("../images", true);
 
 const Home = function() {
 	const homeImg = useLazyLoadedImage(images(`./home.png`));

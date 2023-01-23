@@ -5,7 +5,7 @@ import { Button, Typography } from "@mui/material";
 import { Adjust } from "@mui/icons-material";
 import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
 
-const images = require.context('../images', true);
+const images = require.context("../images", true);
 
 const WorkCard = function({ imgName, companyName, cardTitle }) {
 	const img = useLazyLoadedImage(images(`./${imgName}.png`));
