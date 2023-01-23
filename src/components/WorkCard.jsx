@@ -24,10 +24,11 @@ const WorkCard = function({ imgName, companyName, cardTitle }) {
 			},
 			position: "relative",
 			top: 300,
-			left: 40
+			left: 40,
+			width: 0.95
 		}}>
 			<Typography variant="button">{companyName}</Typography>
-			<Typography variant="h6">{cardTitle}</Typography>
+			<Typography variant="h3" sx={{ lineHeight: "48px" }}>{cardTitle}</Typography>
 			<Button sx={{ px: 0 }}>
 				<Adjust fontSize="10"/>&nbsp;
 				Read more
