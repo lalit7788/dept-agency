@@ -37,7 +37,7 @@ function App() {
 		<AppHeader/>
 		<Container
 			disableGutters
-			maxWidth="xl"
+			maxWidth="100%"
 			sx={{
 				backgroundColor: "common.white"
 			}}

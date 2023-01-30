@@ -1,38 +1,39 @@
 import React from "react";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
 
 const images = require.context("../images", true);
 
 const Home = function() {
-	const homeImg = useLazyLoadedImage(images(`./home.png`));
 
 	return (<Box
 		sx={{
-			paddingTop: theme => theme.mixins.toolbar.minHeight,
-			paddingBottom: 10,
-			backgroundImage: `url(${homeImg})`,
-			width: "100%",
-			backgroundSize: "cover",
-			backgroundRepeat: "no-repeat"
+			marginTop: (theme) => `${theme.mixins.toolbar["@media (min-width:600px)"].minHeight}px`,
+			height: 900
 		}}
 	>
+		<img
+			alt="DEPT agency home page"
+			src={images(`./home.png`)}
+			loading="eager"
+			width="100%"
+			height="100%"
+		/>
 		<Box
 			sx={{
 				color: "text.primary",
 				width: {
-					xs: 350,
-					sm: 440,
-					md: 480,
-					lg: 540,
-					xl: 600
+					xs: 500,
+					sm: 600,
+					md: 700
 				},
 				fontWeight: "fontWeightMedium",
+				position: "relative",
+				bottom: 200
 			}}
 		>
-			<Typography variant="button" sx={{ px: 5 }}>Work</Typography>
-			<Typography variant="h5" sx={{ px: 5 }}>
+			<Typography variant="h6" sx={{ px: 5, textTransform: "uppercase" }}>Work</Typography>
+			<Typography variant="h4" sx={{ px: 5 }}>
 				A selection of projects that <strong>pioneer tech</strong> and <strong>marketing</strong> to help brands stay ahead.
 			</Typography>
 		</Box>

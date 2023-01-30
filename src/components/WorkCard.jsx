@@ -3,34 +3,38 @@ import PropTypes from "prop-types";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import { Adjust } from "@mui/icons-material";
-import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
 
 const images = require.context("../images", true);
 
 const WorkCard = function({ imgName, companyName, cardTitle }) {
-	const img = useLazyLoadedImage(images(`./${imgName}.png`));
+	const img = images(`./${imgName}.png`);
 
 	return (<Box sx={{
-		backgroundImage: `url(${img})`,
-		width: "100%",
-		height: 500,
-		backgroundSize: "cover",
-		backgroundRepeat: "no-repeat"
+		height: "100%"
 	}}>
+		<img
+			alt={imgName}
+			src={img}
+			loading="lazy"
+			width="100%"
+			stye={{
+				maxWidth: "100%"
+			}}
+			height="100%"
+		/>
 		<Box sx={{
 			color: "common.white",
 			"& .MuiButton-text": {
 				color: "common.white"
 			},
 			position: "relative",
-			top: 300,
-			left: 40,
-			width: 0.95
+			bottom: 190,
+			px: 3.75
 		}}>
-			<Typography variant="button">{companyName}</Typography>
-			<Typography variant="h3" sx={{ lineHeight: "48px" }}>{cardTitle}</Typography>
-			<Button sx={{ px: 0 }}>
-				<Adjust fontSize="10"/>&nbsp;
+			<Typography variant="h6" sx={{ textTransform: "uppercase" }}>{companyName}</Typography>
+			<Typography variant="h2" sx={{ lineHeight: "48px" }}>{cardTitle}</Typography>
+			<Button sx={{ fontSize: "18px", px: 0 }}>
+				<Adjust/>&nbsp;
 				Read more
 			</Button>
 		</Box>

@@ -22,7 +22,7 @@ const WorkPortfolio = function() {
 	const workIndustries = useSelector((state) => filteredWorkIndustries(state));
 
 
-	return (<Box sx={{ overflowX: "hidden" }}>
+	return (<Box sx={{ overflow: "hidden" }}>
 		<Grid container alignItems="center" justifyContent="space-between" sx={{
 			px: 2,
 			py: 4

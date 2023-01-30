@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useLazyLoadedImage } from "../hooks/useLazyLoadedImage";
 const logos = require.context("../images/logos", true);
 
 const Logo = styled("img")`
@@ -10,9 +9,9 @@ const Logo = styled("img")`
 `;
 
 const CustomerLogo = function({ name, imgName }) {
-	const img = useLazyLoadedImage(logos(`./${imgName}.png`));
+	const img = logos(`./${imgName}.png`);
 
-	return (<Logo alt={name} src={img}/>);
+	return (<Logo alt={name} src={img} loading="lazy"/>);
 }
 
 CustomerLogo.propTypes = {
